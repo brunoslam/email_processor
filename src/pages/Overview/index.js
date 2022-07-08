@@ -1,8 +1,6 @@
-import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Layout from "../../components/Layout";
-import PrimaryButton from "../../components/Button";
 import { useEmail } from "../../contexts/email-context";
 
 const Main = styled.div`

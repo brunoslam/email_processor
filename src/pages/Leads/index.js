@@ -7,6 +7,7 @@ import PrimaryButton from "../../components/Button";
 import { getEmail } from "../../utils";
 import { useEmail } from "../../contexts/email-context";
 import { useUser } from "../../contexts/user-context";
+import { useCountUp } from "react-countup";
 
 const Main = styled.div`
   padding: 40px;
@@ -97,33 +98,35 @@ const customStyles = {
   },
 };
 
-let timer, time;
-
 function Leads() {
   const [email, setEmail] = useState();
   const [modalIsOpen, setIsOpen] = useState(true);
+
+  const countUpRef = useRef(null);
+  const { start } = useCountUp({
+    ref: countUpRef,
+    start: 0,
+    end: 120,
+    delay: 0,
+    duration: 120,
+    onEnd: ({ pauseResume }) => {
+      setIsOpen(true);
+    },
+  });
 
   const {
     state: { user },
     dispatch: userDispatch,
   } = useUser();
 
-  const { dispatch  } = useEmail();
-
-  const timeRef = useRef();
-  console.log("ocount", timeRef);
+  const { dispatch } = useEmail();
 
   const trigger = () => {
-    time = 0;
-    timer = setInterval(() => {
-      time = time + 1;
-      timeRef.current.textContent = `${time} s`;
-    }, 1000);
+    start();
   };
 
   const getNew = () => {
     const newEmail = getEmail();
-    if (timer) clearInterval(timer);
     trigger();
     setEmail(newEmail);
     setIsOpen(false);
@@ -133,28 +136,22 @@ function Leads() {
     getNew();
   }, []);
 
-  useEffect(() => {
-    console.log("changedasdfsdf");
-    if (time === 5) {
-      setIsOpen(true);
-    }
-  }, [timeRef.current]);
-
-  const processEmail = (type) => {};
   const mark = (status) => () => {
     dispatch({ type: status, payload: { email, user } });
     getNew();
   };
 
   const logOut = () => {
-    userDispatch({ type: "logout" })
-  }
+    userDispatch({ type: "logout" });
+  };
 
   return (
     <Layout>
       <Main>
         <Toolbar>
-          <span ref={timeRef}>0 s</span>
+          <span>
+            <span ref={countUpRef} /> s
+          </span>
           <Actions>
             <Link to="/overview">Overview</Link>
             <Button onClick={logOut}>Exit</Button>
