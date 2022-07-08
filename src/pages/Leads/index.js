@@ -172,7 +172,12 @@ function Leads() {
           <Body>{email ? email.body : "Body"}</Body>
         </EmailContent>
 
-        <Modal isOpen={modalIsOpen} style={customStyles} contentLabel="Expired">
+        <Modal
+          isOpen={modalIsOpen}
+          style={customStyles}
+          ariaHideApp={false}
+          contentLabel="Expired"
+        >
           <SessionModalWrapper>
             <h3>Session Expired</h3>
             <h4>Page will be refresh because session has expired.</h4>
