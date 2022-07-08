@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { users } from "../../data";
 import Button from "../../components/Button";
+import Layout from "../../components/Layout";
 import { useUser } from "../../contexts/user-context";
 import "./style.css";
 import { Navigate } from "react-router-dom";
@@ -29,22 +30,20 @@ function Login() {
   };
 
   return (
-    <div className="root">
-      <div className="main">
-        <div className="content">
-          <div>
-            <label>User</label>
-          </div>
-          <select value={selectedUser} onChange={handleChange}>
-            <option value="">Select User</option>
-            {users.map((user) => (
-              <option key={user.name}>{user.name}</option>
-            ))}
-          </select>
-          <Button onClick={login}>Login</Button>
+    <Layout>
+      <div className="content">
+        <div>
+          <label>User</label>
         </div>
+        <select value={selectedUser} onChange={handleChange}>
+          <option value="">Select User</option>
+          {users.map((user) => (
+            <option key={user.name}>{user.name}</option>
+          ))}
+        </select>
+        <Button onClick={login}>Login</Button>
       </div>
-    </div>
+    </Layout>
   );
 }
 

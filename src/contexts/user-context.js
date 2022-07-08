@@ -2,13 +2,17 @@ import * as React from "react";
 
 const UserContext = React.createContext();
 
+const user = localStorage.getItem("user");
+
 function userReducer(state, action) {
   switch (action.type) {
     case "login":
+      localStorage.setItem("user", action.payload);
       return {
         user: action.payload,
       };
     case "logout":
+      localStorage.removeItem("user");
       return {
         user: undefined,
       };
@@ -20,7 +24,7 @@ function userReducer(state, action) {
 
 function UserProvider({ children }) {
   const [state, dispatch] = React.useReducer(userReducer, {
-    user: undefined,
+    user: user ? user : undefined,
   });
 
   const value = { state, dispatch };
