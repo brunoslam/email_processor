@@ -134,6 +134,7 @@ function Leads() {
 
   useEffect(() => {
     getNew();
+  // eslint-disable-next-line
   }, []);
 
   const mark = (status) => () => {
