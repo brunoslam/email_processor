@@ -1,0 +1,31 @@
+.root {
+  margin-top: 150px;
+  display: flex;
+  justify-content: center;
+}
+
+.main {
+  width: 550px;
+  height: 450px;
+  background: #c6c4c4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  gap: 16px;
+}
+
+.main label {
+  font-size: 21px;
+  font-weight: bold;
+  color: grey;
+}
+
+.content select {
+  height: 45px;
+}
